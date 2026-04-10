@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Costa Rica Packing List – April 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0faf4;
+      color: #2d3a2e;
+      padding: 30px 20px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #1a6b3c;
+    }
+
+    header p {
+      color: #5a7a60;
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+
+    .trip-banner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px 0 24px;
+    }
+
+    .badge {
+      background: #1a6b3c;
+      color: white;
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 0.82rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .controls button {
+      background: #1a6b3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .controls button:hover { background: #145530; }
+
+    .controls button.secondary {
+      background: white;
+      color: #1a6b3c;
+      border: 2px solid #1a6b3c;
+    }
+
+    .controls button.secondary:hover { background: #e8f5ee; }
+
+    .progress-bar-wrap {
+      background: #c8e6d4;
+      border-radius: 10px;
+      height: 14px;
+      max-width: 620px;
+      margin: 0 auto 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      background: #1a6b3c;
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.3s;
+      width: 0%;
+    }
+
+    .progress-label {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #5a7a60;
+      margin-bottom: 30px;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* Row 1: His | Her | Toiletries — equal thirds */
+    .row-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* Row 2: Documents | Bags & Tech | Nice to Haves — equal thirds */
+    .row-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+    }
+
+    .card-her    { border-top: 4px solid #c2185b; }
+    .card-him    { border-top: 4px solid #1565c0; }
+    .card-shared { border-top: 4px solid #1a6b3c; }
+
+    .card h2 {
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e8f5ee;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-her    h2 { color: #c2185b; border-bottom-color: #fce4ec; }
+    .card-him    h2 { color: #1565c0; border-bottom-color: #e3f2fd; }
+    .card-shared h2 { color: #1a6b3c; }
+
+    /* ── Subsection labels ── */
+    .sub-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 16px 0 6px 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .card-her    .sub-label { background: #fce4ec; color: #c2185b; }
+    .card-him    .sub-label { background: #e3f2fd; color: #1565c0; }
+    .card-shared .sub-label { background: #e8f5ee; color: #1a6b3c; }
+
+    /* ── Item rows ── */
+    .item-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 8px;
+      margin-bottom: 4px;
+      border-radius: 8px;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    .item-row:hover              { background: #f5fbf7; }
+    .card-her  .item-row:hover   { background: #fdf5f8; }
+    .card-him  .item-row:hover   { background: #f4f7fd; }
+
+    .item-row input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: #1a6b3c;
+    }
+
+    .card-her .item-row input[type="checkbox"] { accent-color: #c2185b; }
+    .card-him .item-row input[type="checkbox"] { accent-color: #1565c0; }
+
+    .label-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-label {
+      font-size: 0.91rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .item-note {
+      font-size: 0.76rem;
+      color: #8aaa92;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    .item-row.checked .item-label { text-decoration: line-through; color: #b0c4b8; }
+    .item-row.checked .item-note  { color: #c8dece; }
+
+    /* ── Add item row ── */
+    .add-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed #c8e6d4;
+    }
+
+    .card-her  .add-row { border-top-color: #f0c0d0; }
+    .card-him  .add-row { border-top-color: #b8d0f0; }
+
+    .add-row input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #c8e6d4;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 0.87rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .add-row input[type="text"]:focus              { border-color: #1a6b3c; }
+    .card-her .add-row input[type="text"]:focus    { border-color: #c2185b; }
+    .card-him .add-row input[type="text"]:focus    { border-color: #1565c0; }
+
+    .add-row button {
+      background: #1a6b3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .card-her    .add-row button       { background: #c2185b; }
+    .card-her    .add-row button:hover { background: #a01050; }
+    .card-him    .add-row button       { background: #1565c0; }
+    .card-him    .add-row button:hover { background: #0d47a1; }
+    .card-shared .add-row button:hover { background: #145530; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #8aaa92;
+      font-size: 0.82rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .row-top,
+      .row-bottom {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .row-top,
+      .row-bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      .controls, .add-row, .progress-bar-wrap, .progress-label { display: none !important; }
+      body { background: white; padding: 10px; }
+      .card { box-shadow: none; border: 1px solid #ccc; }
+      .row-top, .row-bottom { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🌴 Costa Rica Packing List</h1>
+  <p>April 17–25, 2026 &nbsp;·&nbsp; Two Travelers</p>
+  <div class="trip-banner">
+    <span class="badge">🌋 Arenal Apr 18–21</span>
+    <span class="badge">🏖️ Tamarindo Apr 21–25</span>
+    <span class="badge">🌊 White Water Rafting</span>
+    <span class="badge">🎣 Fishing Trip</span>
+    <span class="badge">☕ Coffee Tour</span>
+    <span class="badge">🍳 Cooking Class</span>
+    <span class="badge">🏄 Surf Lessons</span>
+    <span class="badge">🧘 Yoga Classes</span>
+  </div>
+</header>
+
+<div class="controls">
+  <button onclick="checkAll()">✅ Check All</button>
+  <button class="secondary" onclick="uncheckAll()">↩️ Uncheck All</button>
+  <button class="secondary" onclick="window.print()">🖨️ Print / Save PDF</button>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="progress-label" id="progressLabel">0 of 0 items packed</div>
+
+<div class="layout">
+  <!-- Row 1: His | Her | Toiletries -->
+  <div class="row-top" id="row-top"></div>
+  <!-- Row 2: Documents | Bags & Tech | Nice to Haves -->
+  <div class="row-bottom" id="row-bottom"></div>
+</div>
+
+<footer>
+  <p>Click any item to check it off &nbsp;·&nbsp; Use the + field to add custom items &nbsp;·&nbsp; Pura Vida! 🌿</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════ */
+const HIM = {
+  title: "👨 His Packing List",
+  css: "card-him",
+  sections: [
+    {
+      label: "Tops",
+      items: [
+        { text: "4–5 moisture-wicking t-shirts / performance tees" },
+        { text: "1 lightweight long-sleeve shirt", note: "Sun & bug protection — coffee tour & fishing trip" },
+        { text: "1 rash guard", note: "Essential for surf lessons — sun protection in the water" },
+        { text: "1 light fleece or hoodie", note: "Arenal evenings can dip into the 60s°F" },
+      ]
+    },
+    {
+      label: "Bottoms",
+      items: [
+        { text: "2–3 pairs quick-dry shorts", note: "Hiking and general use" },
+        { text: "1 pair convertible zip-off pants", note: "Arenal hikes + evening wear" },
+        { text: "1 pair casual evening pants or chinos" },
+        { text: "2–3 swim trunks / board shorts", note: "Surfing, fishing, beach" },
+        { text: "2–3 pairs athletic / yoga shorts or lightweight sweats", note: "Yoga classes" },
+      ]
+    },
+    {
+      label: "Layering & Weather",
+      items: [
+        { text: "1 lightweight packable rain jacket or poncho", note: "Critical for Arenal — late April is start of rainy season" },
+      ]
+    },
+    {
+      label: "Underwear & Socks",
+      items: [
+        { text: "5–7 pairs underwear", note: "Quick-dry preferred" },
+        { text: "5–7 pairs athletic socks" },
+      ]
+    },
+    {
+      label: "Shoes",
+      items: [
+        { text: "Water sandals — Chacos or Tevas", note: "Rafting, beach, fishing" },
+        { text: "Trail runners or light hiking shoes", note: "Coffee tour and Arenal walks" },
+        { text: "Flip flops", note: "Beach and around the resort" },
+      ]
+    },
+    {
+      label: "Sleep & Lounge",
+      items: [
+        { text: "Light pajamas or lounge shorts" },
+      ]
+    },
+    {
+      label: "Accessories",
+      items: [
+        { text: "1 baseball cap or wide-brim hat", note: "Sun protection" },
+      ]
+    },
+  ]
+};
+
+const HER = {
+  title: "👩 Her Packing List",
+  css: "card-her",
+  sections: [
+    {
+      label: "Tops",
+      items: [
+        { text: "4–5 moisture-wicking tanks or tees" },
+        { text: "1–2 lightweight long-sleeve tops", note: "Sun & bug protection" },
+        { text: "1 rash guard", note: "Surfing — more sun coverage in open water" },
+        { text: "1 light layer, cardigan, or hoodie", note: "Arenal evenings" },
+        { text: "2–3 sports bras + 2 regular bras" },
+      ]
+    },
+    {
+      label: "Bottoms",
+      items: [
+        { text: "2–3 pairs quick-dry shorts" },
+        { text: "1 pair convertible zip-off pants or lightweight hiking pants" },
+        { text: "1 pair casual / evening pants" },
+        { text: "2–3 yoga-ready leggings or shorts" },
+      ]
+    },
+    {
+      label: "Dresses & Cover-Ups",
+      items: [
+        { text: "1 sundress", note: "Cooking class, dinner out" },
+        { text: "1–2 casual sundresses", note: "Tamarindo evenings" },
+        { text: "1–2 beach cover-ups" },
+      ]
+    },
+    {
+      label: "Swimwear",
+      items: [
+        { text: "2–3 swimsuit tops and bottoms", note: "Mix-and-match bikinis or one-pieces" },
+      ]
+    },
+    {
+      label: "Layering & Weather",
+      items: [
+        { text: "1 lightweight packable rain jacket or poncho", note: "Essential for Arenal — late April is start of rainy season" },
+      ]
+    },
+    {
+      label: "Underwear & Socks",
+      items: [
+        { text: "5–7 pairs underwear", note: "Quick-dry preferred" },
+        { text: "5–7 pairs athletic socks" },
+      ]
+    },
+    {
+      label: "Shoes",
+      items: [
+        { text: "Water sandals — Chacos or Tevas", note: "Rafting, beach" },
+        { text: "Trail runners or light hiking shoes" },
+        { text: "Flip flops or casual sandals" },
+        { text: "Casual flats or strappy sandals", note: "Evenings out" },
+      ]
+    },
+    {
+      label: "Sleep & Lounge",
+      items: [
+        { text: "Light pajamas" },
+      ]
+    },
+    {
+      label: "Accessories",
+      items: [
+        { text: "Wide-brim sun hat", note: "Beach + coffee tour" },
+      ]
+    },
+  ]
+};
+
+const SHARED = [
+  {
+    title: "🧴 Toiletries",
+    sections: [
+      {
+        label: "Sun & Bug Protection",
+        items: [
+          { text: "Reef-safe mineral sunscreen SPF 50+", note: "Bring enough — pricey in CR; required on many beaches" },
+          { text: "After-sun lotion or aloe gel" },
+          { text: "DEET-based insect repellent 30%+", note: "Arenal and jungle areas have active mosquitoes" },
+          { text: "Lip balm with SPF" },
+        ]
+      },
+      {
+        label: "Hair & Body",
+        items: [
+          { text: "Shampoo & conditioner (travel size)" },
+          { text: "Body wash / soap bar" },
+          { text: "Hair ties, bobby pins, small brush or comb" },
+          { text: "Deodorant", note: "Bring enough — the good stuff is expensive locally" },
+          { text: "Razor + shaving cream / gel" },
+        ]
+      },
+      {
+        label: "Face & Skin",
+        items: [
+          { text: "Face wash and moisturizer" },
+        ]
+      },
+      {
+        label: "Dental & Hygiene",
+        items: [
+          { text: "Toothbrush, toothpaste, floss" },
+          { text: "Hand sanitizer (small bottle)" },
+          { text: "Nail clippers / small nail file" },
+          { text: "Tweezers" },
+        ]
+      },
+      {
+        label: "Feminine Care",
+        items: [
+          { text: "Feminine hygiene products", note: "Selection can be limited in smaller towns" },
+        ]
+      },
+      {
+        label: "Health & First Aid",
+        items: [
+          { text: "Personal prescriptions + a few days extra" },
+          { text: "Ibuprofen / acetaminophen" },
+          { text: "Antidiarrheal — Imodium" },
+          { text: "Pepto-Bismol tablets" },
+          { text: "Antihistamine — Benadryl or similar" },
+          { text: "Blister bandages + wound bandages" },
+          { text: "Antiseptic wipes" },
+          { text: "Hydrocortisone cream" },
+          { text: "Motion sickness tablets", note: "Winding mountain roads to Arenal + offshore fishing" },
+          { text: "Electrolyte packets", note: "You'll sweat a lot — these are a game changer" },
+          { text: "Melatonin (optional)", note: "For adjusting to time zone" },
+        ]
+      },
+    ]
+  },
+  {
+    title: "📋 Documents & Money",
+    sections: [
+      {
+        label: "Identity & Travel Docs",
+        items: [
+          { text: "Passports", note: "Must be valid through at least October 2026" },
+          { text: "Printed or digital copies of passports", note: "Keep separate from originals" },
+          { text: "Driver's licenses", note: "Valid for driving in Costa Rica" },
+          { text: "Health insurance card" },
+          { text: "COVID / vaccination records", note: "Not currently required but good to have" },
+        ]
+      },
+      {
+        label: "Bookings & Insurance",
+        items: [
+          { text: "Flight confirmation printouts / digital copies" },
+          { text: "Hotel/Airbnb confirmations for both properties" },
+          { text: "Tour & activity booking confirmations", note: "Rafting, surfing, fishing, coffee tour, cooking class, yoga" },
+          { text: "Travel insurance documents" },
+        ]
+      },
+      {
+        label: "Money",
+        items: [
+          { text: "2 credit / debit cards each", note: "Visa/Mastercard most accepted; Charles Schwab debit = no ATM fees" },
+          { text: "USD cash — mix of $1s and $20s", note: "$1s for tips; withdraw colones from CR ATMs for best rate" },
+        ]
+      },
+      {
+        label: "Emergency",
+        items: [
+          { text: "Emergency contacts list — written, not just in your phone" },
+        ]
+      },
+    ]
+  },
+  {
+    title: "🎒 Bags, Luggage & Tech",
+    sections: [
+      {
+        label: "Luggage & Bags",
+        items: [
+          { text: "1 checked bag or large backpack each", note: "25–40L" },
+          { text: "1 daypack / small backpack per person", note: "Tours, hikes, beach days" },
+          { text: "1 dry bag or waterproof pouch", note: "Critical for rafting and fishing; doubles as beach bag" },
+          { text: "1 packable tote bag", note: "Markets, shopping, beach" },
+          { text: "Packing cubes", note: "Makes switching between Arenal and Tamarindo much easier" },
+          { text: "Luggage locks" },
+        ]
+      },
+      {
+        label: "Tech & Electronics",
+        items: [
+          { text: "Smartphones + chargers" },
+          { text: "Portable power bank", note: "For long tour days away from outlets" },
+          { text: "Universal power strip or travel adapter", note: "Costa Rica uses US-standard plugs" },
+          { text: "Waterproof phone case or pouch", note: "Rafting, beach, fishing" },
+          { text: "Earbuds / headphones" },
+          { text: "Camera + charger + extra memory cards" },
+          { text: "Laptop or tablet (if needed)" },
+          { text: "E-reader or downloaded books / shows" },
+        ]
+      },
+      {
+        label: "Accessories",
+        items: [
+          { text: "Sunglasses — polarized", note: "Great for fishing and beach glare" },
+          { text: "Watch or waterproof fitness tracker" },
+          { text: "Small cross-body bag or money belt", note: "For valuables in town" },
+          { text: "Reusable insulated water bottle", note: "Tap water is safe to drink in CR!" },
+          { text: "Microfiber travel towel", note: "After rafting or surf lessons" },
+          { text: "Lightweight travel umbrella", note: "Backup for Arenal" },
+          { text: "Carabiner clips", note: "Handy for attaching gear to daypack" },
+          { text: "Ziploc bags in multiple sizes", note: "Keeps gear dry — essential for rafting day" },
+        ]
+      },
+    ]
+  },
+  {
+    title: "✨ Nice to Haves",
+    sections: [
+      {
+        label: "Tech & Gear",
+        items: [
+          { text: "GoPro or waterproof action camera", note: "Rafting + surf lessons — you'll want the footage" },
+          { text: "Binoculars", note: "Wildlife spotting around Arenal and on the fishing trip" },
+        ]
+      },
+      {
+        label: "Comfort & Convenience",
+        items: [
+          { text: "Lightweight hammock", note: "Arenal has incredible trees" },
+          { text: "Sarong / lightweight wrap", note: "Beach cover, towel, blanket — incredibly versatile" },
+          { text: "Cooling towel", note: "Tamarindo heat is no joke" },
+          { text: "Collapsible reusable straws", note: "Costa Rica is actively phasing out plastic straws" },
+        ]
+      },
+      {
+        label: "Practical Extras",
+        items: [
+          { text: "Luggage scale", note: "You'll want room for coffee and souvenirs on the way home" },
+          { text: "Laundry soap sheets or small detergent", note: "Hand-wash quick-dry items mid-trip" },
+          { text: "Small Spanish phrasebook or downloaded offline Google Translate" },
+          { text: "Snack stash for travel days", note: "Protein bars, trail mix, etc." },
+          { text: "Small Ziploc with sewing kit, safety pins, and extra buttons" },
+          { text: "Tide to Go / stain remover pen", note: "Red clay roads in Arenal will test you" },
+        ]
+      },
+    ]
+  },
+];
+
+/* ═══════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════ */
+let uid = 0;
+
+function createItemRow(item) {
+  const row = document.createElement('div');
+  row.className = 'item-row';
+
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.id = 'i' + (uid++);
+
+  cb.addEventListener('change', function () {
+    row.classList.toggle('checked', this.checked);
+    updateProgress();
+  });
+
+  row.addEventListener('click', function (e) {
+    if (e.target !== cb) {
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change'));
+    }
+  });
+
+  const wrap = document.createElement('div');
+  wrap.className = 'label-wrap';
+
+  const lbl = document.createElement('div');
+  lbl.className = 'item-label';
+  lbl.textContent = item.text;
+  wrap.appendChild(lbl);
+
+  if (item.note) {
+    const note = document.createElement('div');
+    note.className = 'item-note';
+    note.textContent = item.note;
+    wrap.appendChild(note);
+  }
+
+  row.appendChild(cb);
+  row.appendChild(wrap);
+  return row;
+}
+
+function buildAddRow(listDiv) {
+  const addRow = document.createElement('div');
+  addRow.className = 'add-row';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = 'Add an item...';
+
+  const btn = document.createElement('button');
+  btn.textContent = '+';
+
+  function doAdd() {
+    const val = input.value.trim();
+    if (!val) return;
+    listDiv.appendChild(createItemRow({ text: val }));
+    input.value = '';
+    updateProgress();
+  }
+
+  btn.addEventListener('click', doAdd);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doAdd();
+  });
+
+  addRow.appendChild(input);
+  addRow.appendChild(btn);
+  return addRow;
+}
+
+function buildSubsections(subsections) {
+  const container = document.createElement('div');
+  subsections.forEach(function (sub) {
+    const lbl = document.createElement('div');
+    lbl.className = 'sub-label';
+    lbl.textContent = sub.label;
+    container.appendChild(lbl);
+    sub.items.forEach(function (item) {
+      container.appendChild(createItemRow(item));
+    });
+  });
+  return container;
+}
+
+function buildCard(title, cssClass, subsections) {
+  const card = document.createElement('div');
+  card.className = 'card ' + cssClass;
+
+  const h2 = document.createElement('h2');
+  h2.textContent = title;
+  card.appendChild(h2);
+
+  const body = buildSubsections(subsections);
+  card.appendChild(body);
+  card.appendChild(buildAddRow(body));
+  return card;
+}
+
+/* ═══════════════════════════════════════════
+   BUILD PAGE
+═══════════════════════════════════════════ */
+function buildAll() {
+  const rowTop    = document.getElementById('row-top');
+  const rowBottom = document.getElementById('row-bottom');
+
+  rowTop.innerHTML    = '';
+  rowBottom.innerHTML = '';
+
+  // Row 1: His | Her | Toiletries
+  rowTop.appendChild(buildCard(HIM.title,       HIM.css,      HIM.sections));
+  rowTop.appendChild(buildCard(HER.title,       HER.css,      HER.sections));
+  rowTop.appendChild(buildCard(SHARED[0].title, 'card-shared', SHARED[0].sections));
+
+  // Row 2: Documents | Bags & Tech | Nice to Haves
+  rowBottom.appendChild(buildCard(SHARED[1].title, 'card-shared', SHARED[1].sections));
+  rowBottom.appendChild(buildCard(SHARED[2].title, 'card-shared', SHARED[2].sections));
+  rowBottom.appendChild(buildCard(SHARED[3].title, 'card-shared', SHARED[3].sections));
+
+  updateProgress();
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS / CONTROLS
+═══════════════════════════════════════════ */
+function updateProgress() {
+  const all     = document.querySelectorAll('.item-row input[type="checkbox"]');
+  const checked = document.querySelectorAll('.item-row input[type="checkbox"]:checked');
+  const total = all.length;
+  const done  = checked.length;
+  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    done + ' of ' + total + ' items packed (' + pct + '%)';
+}
+
+function checkAll() {
+  document.querySelectorAll('.item-row input[type="checkbox"]').forEach(function (cb) {
+    cb.checked = true;
+    cb.closest('.item-row').classList.add('checked');
+  });
+  updateProgress();
+}
+
+function uncheckAll() {
+  document.querySelectorAll('.item-row input[type="checkbox"]').forEach(function (cb) {
+    cb.checked = false;
+    cb.closest('.item-row').classList.remove('checked');
+  });
+  updateProgress();
+}
+
+buildAll();
+</script>
+</body>
+</html>
